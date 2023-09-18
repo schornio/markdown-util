@@ -1,3 +1,5 @@
+"use client";
+
 import { MarkdownComponentConfig, Markdown as MakrdownCore } from "./";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +11,13 @@ export function heading(depthOffset: number) {
     content,
   }) => {
     const depth = Math.min(content.depth + depthOffset, 6);
-    const HeadingComponent = `h${depth}` as keyof JSX.IntrinsicElements;
+    const HeadingComponent = `h${depth}` as
+      | "h1"
+      | "h2"
+      | "h3"
+      | "h4"
+      | "h5"
+      | "h6";
     return <HeadingComponent>{children}</HeadingComponent>;
   };
   return Heading;

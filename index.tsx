@@ -16,7 +16,13 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
   break: () => <br />,
   emphasis: ({ children }) => <em>{children}</em>,
   heading: ({ children, content }) => {
-    const Heading = `h${content.depth}` as keyof JSX.IntrinsicElements;
+    const Heading = `h${content.depth}` as
+      | "h1"
+      | "h2"
+      | "h3"
+      | "h4"
+      | "h5"
+      | "h6";
     return <Heading>{children}</Heading>;
   },
   image: ({ content }) => (
