@@ -1,0 +1,36 @@
+{
+  "name": "@schornio/markdown-util",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schornio/markdown-util.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schornio/markdown-util/issues"
+  },
+  "homepage": "https://github.com/schornio/markdown-util#readme",
+  "dependencies": {
+    "mdast-util-from-markdown": "^2.0.0"
+  },
+  "peerDependencies": {
+    "next": "^13.4.19",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "typescript": "^5.2.2"
+  }
+}
