@@ -1,6 +1,6 @@
 {
   "name": "@schornio/markdown-util",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "",
   "main": "dist/index.jsx",
   "types": "dist/index.d.ts",
