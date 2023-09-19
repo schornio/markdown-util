@@ -1,5 +1,3 @@
-"use client";
-
 import { MarkdownComponentConfig, Markdown as MakrdownCore } from "./";
 import Image from "next/image";
 import Link from "next/link";
