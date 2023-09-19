@@ -35,3 +35,12 @@ export function MyComponent({ text }: { text: string }) {
   );
 }
 ```
+
+## Publish new version
+
+```bash
+npm run build
+npm version major, minor, patch
+npm pack
+npm publish --access public
+```

@@ -2,8 +2,11 @@
   "name": "@schornio/markdown-util",
   "version": "0.6.1",
   "description": "",
-  "main": "index.tsx",
-  "types": "index.d.ts",
+  "main": "dist/index.jsx",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
