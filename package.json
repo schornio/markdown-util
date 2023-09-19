@@ -2,7 +2,7 @@
   "name": "@schornio/markdown-util",
   "version": "0.3.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
