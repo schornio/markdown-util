@@ -28,7 +28,7 @@ export function Markdown({
   imageHeight = 300,
   imageWidth = 600,
 }: {
-  children?: string;
+  children?: string | null;
   componentsOverride?: Partial<MarkdownComponentConfig>;
   headingTopLevel?: number;
   imageHeight?: number;
