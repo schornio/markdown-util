@@ -92,10 +92,10 @@ export function Markdown({
   children,
   components,
 }: {
-  children: string;
+  children?: string;
   components?: MarkdownComponentConfig;
 }) {
-  const ast = useMemo(() => fromMarkdown(children), [children]);
+  const ast = useMemo(() => fromMarkdown(children ?? ""), [children]);
 
   return (
     <MarkdownChildren components={components}>{ast.children}</MarkdownChildren>
