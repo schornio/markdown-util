@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/schornio/markdown-util#readme",
   "dependencies": {
-    "mdast-util-from-markdown": "^2.0.0"
+    "mdast-util-from-markdown": "^2.0.0",
+    "mdast-util-gfm-table": "^2.0.0"
   },
   "peerDependencies": {
     "next": "^15",

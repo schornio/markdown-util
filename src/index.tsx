@@ -1,5 +1,6 @@
 import { ReactNode, useMemo } from "react";
 import { fromMarkdown } from "mdast-util-from-markdown";
+import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
 
 type Root = ReturnType<typeof fromMarkdown>;
 type Content = Root["children"][number];
@@ -8,6 +9,7 @@ export type MarkdownComponentConfig = {
   [key in Content["type"]]?: (props: {
     children: ReactNode;
     content: Extract<Content, { type: key }>;
+    Markdown: typeof MarkdownChildren;
   }) => ReactNode;
 };
 
@@ -40,6 +42,25 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
   listItem: ({ children }) => <li>{children}</li>,
   paragraph: ({ children }) => <p>{children}</p>,
   strong: ({ children }) => <strong>{children}</strong>,
+  table: ({ Markdown, content }) => (
+    <table>
+      {content.children.map((row) => (
+        <tr>
+          {row.children.map((cell, index) =>
+            index === 0 ? (
+              <th>
+                <Markdown>{cell.children}</Markdown>
+              </th>
+            ) : (
+              <td>
+                <Markdown>{cell.children}</Markdown>
+              </td>
+            )
+          )}
+        </tr>
+      ))}
+    </table>
+  ),
   text: ({ content }) => content.value,
 };
 
@@ -95,7 +116,13 @@ export function Markdown({
   children?: string | null;
   components?: MarkdownComponentConfig;
 }) {
-  const ast = useMemo(() => fromMarkdown(children ?? ""), [children]);
+  const ast = useMemo(
+    () =>
+      fromMarkdown(children ?? "", {
+        mdastExtensions: [gfmTableFromMarkdown()],
+      }),
+    [children]
+  );
 
   return (
     <MarkdownChildren components={components}>{ast.children}</MarkdownChildren>
