@@ -1,5 +1,6 @@
 import { ReactNode, useMemo } from "react";
 import { fromMarkdown } from "mdast-util-from-markdown";
+import { gfmTable } from "micromark-extension-gfm-table";
 import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
 
 type Root = ReturnType<typeof fromMarkdown>;
@@ -119,6 +120,7 @@ export function Markdown({
   const ast = useMemo(
     () =>
       fromMarkdown(children ?? "", {
+        extensions: [gfmTable()],
         mdastExtensions: [gfmTableFromMarkdown()],
       }),
     [children]
