@@ -45,21 +45,30 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
   strong: ({ children }) => <strong>{children}</strong>,
   table: ({ Markdown, content }) => (
     <table>
-      {content.children.map((row) => (
-        <tr>
-          {row.children.map((cell, index) =>
-            index === 0 ? (
-              <th>
+      {content.children[0] ? (
+        <thead>
+          <tr>
+            {content.children[0].children.map((cell, indexCell) => (
+              <th key={indexCell}>
                 <Markdown>{cell.children}</Markdown>
               </th>
-            ) : (
-              <td>
-                <Markdown>{cell.children}</Markdown>
-              </td>
-            )
-          )}
-        </tr>
-      ))}
+            ))}
+          </tr>
+        </thead>
+      ) : undefined}
+      {content.children.length > 1 ? (
+        <tbody>
+          {content.children.slice(1).map((row, indexRow) => (
+            <tr key={indexRow}>
+              {row.children.map((cell, indexCell) => (
+                <td key={indexCell}>
+                  <Markdown>{cell.children}</Markdown>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      ) : undefined}
     </table>
   ),
   text: ({ content }) => content.value,
@@ -74,13 +83,14 @@ function MarkdownContent({
 }) {
   const Component = (components?.[children.type] ??
     COMPONENTS_DEFAULT[children.type]) as (props: {
+    Markdown: typeof MarkdownChildren;
     children: ReactNode;
     content: Content;
   }) => ReactNode;
 
   if (Component) {
     return (
-      <Component content={children}>
+      <Component Markdown={MarkdownChildren} content={children}>
         {"children" in children ? (
           <MarkdownChildren components={components}>
             {children.children}
