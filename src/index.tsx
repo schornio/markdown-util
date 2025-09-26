@@ -9,6 +9,7 @@ type Content = Root["children"][number];
 export type MarkdownComponentConfig = {
   [key in Content["type"]]?: (props: {
     children: ReactNode;
+    components?: MarkdownComponentConfig;
     content: Extract<Content, { type: key }>;
     Markdown: typeof MarkdownChildren;
   }) => ReactNode;
@@ -43,14 +44,14 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
   listItem: ({ children }) => <li>{children}</li>,
   paragraph: ({ children }) => <p>{children}</p>,
   strong: ({ children }) => <strong>{children}</strong>,
-  table: ({ Markdown, content }) => (
+  table: ({ Markdown, components, content }) => (
     <table>
       {content.children[0] ? (
         <thead>
           <tr>
             {content.children[0].children.map((cell, indexCell) => (
               <th key={indexCell}>
-                <Markdown>{cell.children}</Markdown>
+                <Markdown components={components}>{cell.children}</Markdown>
               </th>
             ))}
           </tr>
@@ -62,7 +63,7 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
             <tr key={indexRow}>
               {row.children.map((cell, indexCell) => (
                 <td key={indexCell}>
-                  <Markdown>{cell.children}</Markdown>
+                  <Markdown components={components}>{cell.children}</Markdown>
                 </td>
               ))}
             </tr>
@@ -85,12 +86,17 @@ function MarkdownContent({
     COMPONENTS_DEFAULT[children.type]) as (props: {
     Markdown: typeof MarkdownChildren;
     children: ReactNode;
+    components?: MarkdownComponentConfig;
     content: Content;
   }) => ReactNode;
 
   if (Component) {
     return (
-      <Component Markdown={MarkdownChildren} content={children}>
+      <Component
+        Markdown={MarkdownChildren}
+        components={components}
+        content={children}
+      >
         {"children" in children ? (
           <MarkdownChildren components={components}>
             {children.children}
