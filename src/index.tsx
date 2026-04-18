@@ -2,6 +2,8 @@ import { ReactNode, useMemo } from "react";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmTable } from "micromark-extension-gfm-table";
 import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
+import { math } from "micromark-extension-math";
+import { mathFromMarkdown } from "mdast-util-math";
 
 type Root = ReturnType<typeof fromMarkdown>;
 type Content = Root["children"][number];
@@ -136,10 +138,10 @@ export function Markdown({
   const ast = useMemo(
     () =>
       fromMarkdown(children ?? "", {
-        extensions: [gfmTable()],
-        mdastExtensions: [gfmTableFromMarkdown()],
+        extensions: [gfmTable(), math()],
+        mdastExtensions: [gfmTableFromMarkdown(), mathFromMarkdown()],
       }),
-    [children]
+    [children],
   );
 
   return (
