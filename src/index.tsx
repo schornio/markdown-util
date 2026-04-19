@@ -31,6 +31,7 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
       | "h6";
     return <Heading>{children}</Heading>;
   },
+  inlineMath: ({ content }) => <>{content.value}</>,
   image: ({ content }) => (
     <img alt={content.alt ?? undefined} src={content.url} />
   ),
@@ -44,6 +45,7 @@ const COMPONENTS_DEFAULT: MarkdownComponentConfig = {
     return <List>{children}</List>;
   },
   listItem: ({ children }) => <li>{children}</li>,
+  math: ({ content }) => <>{content.value}</>,
   paragraph: ({ children }) => <p>{children}</p>,
   strong: ({ children }) => <strong>{children}</strong>,
   table: ({ Markdown, components, content }) => (
